@@ -154,7 +154,7 @@ public enum PasteHighLight {
     @XmlEnumValue("newlisp")newLISP("newlisp"),
     @XmlEnumValue("nginx")Nginx("nginx"),
     @XmlEnumValue("nimrod")Nimrod("nimrod"),
-    @XmlEnumValue("text")None("text"),
+    @XmlEnumValue("text")TEXT("text"),
     @XmlEnumValue("nsis")NullSoft_Installer("nsis"),
     @XmlEnumValue("oberon2")Oberon_2("oberon2"),
     @XmlEnumValue("objeck")Objeck_Programming_Langua("objeck"),

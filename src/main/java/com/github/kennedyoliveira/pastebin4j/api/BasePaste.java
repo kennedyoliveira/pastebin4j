@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 /**
+ * <p>Base of the paste, this encapsulates some fields that the clients doens't
+ * need to interact, just consult, because these fields are created and updated by the API and
+ * not fetched for the Pastebin.</p>
+ *
  * @author kennedy
  */
-public class BasePaste {
+public abstract class BasePaste {
     /**
      * Date when the paste was created.
      */

@@ -50,12 +50,11 @@ class PasteInfoUpdater {
         if (paste instanceof Paste) {
             Paste tmpPaste = (Paste) paste;
 
-            if (paste.getExpireDateTimestamp() > 0)
-                if (paste.getExpireDateTimestamp() > 0) {
-                    tmpPaste.setExpiration(PasteExpiration.getBySeconds(paste.getExpireDateTimestamp() - paste.getDateTimestamp()));
-                } else {
-                    tmpPaste.setExpiration(PasteExpiration.NEVER);
-                }
+            if (paste.getExpireDateTimestamp() > 0) {
+                tmpPaste.setExpiration(PasteExpiration.getBySeconds(paste.getExpireDateTimestamp() - paste.getDateTimestamp()));
+            } else {
+                tmpPaste.setExpiration(PasteExpiration.NEVER);
+            }
         }
 
         if (paste.getDateTimestamp() > 0) {

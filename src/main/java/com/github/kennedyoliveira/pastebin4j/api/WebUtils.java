@@ -24,10 +24,16 @@ class WebUtils {
      */
     private static final String USER_AGENT = "Mozilla/5.0";
 
-
+    /**
+     * Issues a get and return the response.
+     *
+     * @param url        URL to get
+     * @param parameters Parameters that will be attached to the url.
+     * @return The response.
+     */
     public static Optional<String> get(@NotNull String url, @NotNull Map<Object, Object> parameters) {
         try {
-            final URL url1 = new URL(url + "?" + getPostParams(parameters));
+            final URL url1 = new URL(url + "?" + getParams(parameters));
 
             final HttpURLConnection urlConnection = (HttpURLConnection) url1.openConnection();
 
@@ -40,12 +46,17 @@ class WebUtils {
 
             return Optional.of(s);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return Optional.empty();
     }
 
+    /**
+     * Do a post and returns the response or throws exception if the status code is different from 200
+     *
+     * @param url        URL to post
+     * @param parameters Map with the params
+     * @return The response text
+     */
     public static Optional<String> post(@NotNull String url, @NotNull Map<Object, Object> parameters) {
         try {
             final URL url1 = new URL(url);
@@ -57,7 +68,7 @@ class WebUtils {
             urlConnection.addRequestProperty("Accept", Locale.getDefault().getLanguage());
             urlConnection.setConnectTimeout(30000);
 
-            final String params = getPostParams(parameters);
+            final String params = getParams(parameters);
 
             String result = doRequest(url, urlConnection, params);
 
@@ -96,7 +107,7 @@ class WebUtils {
      * @param parameters Map with parameters.
      * @return A string encoded for post requests.
      */
-    static String getPostParams(@NotNull Map<Object, Object> parameters) {
+    static String getParams(@NotNull Map<Object, Object> parameters) {
         return parameters.entrySet()
                          .stream()
                          .map(e -> String.format("%s=%s", encodeUTF8(e.getKey().toString()), encodeUTF8(e.getValue().toString())))

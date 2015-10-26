@@ -41,6 +41,9 @@ public class UserInformation {
     @XmlElement(name = "user_account_type")
     private AccountType accountType;
 
+    @XmlElement(name = "user_format_short")
+    private PasteHighLight defaultHighLight;
+
     public UserInformation() {
     }
 
@@ -98,5 +101,12 @@ public class UserInformation {
      */
     public String getWebsiteUrl() {
         return websiteUrl;
+    }
+
+    /**
+     * @return The default sintax highlight for the user.
+     */
+    public PasteHighLight getDefaultHighLight() {
+        return defaultHighLight;
     }
 }

@@ -85,6 +85,17 @@ public class Paste extends BasePaste {
     }
 
     /**
+     * <p>Creates a paste with an unique key, use this constructor when you wanna get a pastes content or delete a paste.</p>
+     *
+     * @param key Paste unique key
+     * @throws NullPointerException if the {@code key} is null
+     */
+    public Paste(@NotNull String key) {
+        Objects.requireNonNull(key);
+        this.key = key;
+    }
+
+    /**
      * <p>Creates a completly paste ready to be uploaded</p>
      *
      * @param title      The title of the paste, can be null
@@ -300,7 +311,7 @@ public class Paste extends BasePaste {
      *
      * @return Creation date time of this paste.
      */
-    protected LocalDateTime getPasteDate() {
+    public LocalDateTime getPasteDate() {
         return pasteDate;
     }
 

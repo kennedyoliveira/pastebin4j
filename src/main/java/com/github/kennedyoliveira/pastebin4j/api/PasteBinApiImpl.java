@@ -51,7 +51,7 @@ public class PasteBinApiImpl implements PasteBinApi {
         return doPost(accountCredentials,
                       PasteBinApiOptions.TRENDS,
                       params -> post.apply(params).map(r -> String.format("<pastes>%s</pastes>", r))
-                                    .map(r -> XMLUtils.unMarshall(r, Pastes.class))
+                                    .map(r -> XMLUtils.unMarshal(r, Pastes.class))
                                     .map(Pastes::getPastes)
                                     .map(PasteInfoUpdater::updateDate)
                                     .orElse(Collections.emptyList()));
@@ -91,7 +91,7 @@ public class PasteBinApiImpl implements PasteBinApi {
                           params.put(PasteBinApiParams.USER_KEY, userSessionKey);
 
                           final Optional<UserInformation> userInformation = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, params))
-                                  .map(r -> XMLUtils.unMarshall(r, UserInformation.class));
+                                  .map(r -> XMLUtils.unMarshal(r, UserInformation.class));
 
                           if (userInformation.isPresent())
                               return userInformation.get();
@@ -159,7 +159,7 @@ public class PasteBinApiImpl implements PasteBinApi {
 
                           return requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, params))
                                   .map(r -> String.format("<pastes>%s</pastes>", r))
-                                  .map(r -> XMLUtils.unMarshall(r, Pastes.class))
+                                  .map(r -> XMLUtils.unMarshal(r, Pastes.class))
                                   .map(Pastes::getPastes)
                                   .map(PasteInfoUpdater::updateDate)
                                   .orElse(Collections.emptyList());

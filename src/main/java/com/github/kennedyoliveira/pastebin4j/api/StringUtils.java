@@ -5,6 +5,8 @@ package com.github.kennedyoliveira.pastebin4j.api;
  */
 public class StringUtils {
 
+    private StringUtils() {}
+
     /**
      * Checks if the String is null or empty.
      *

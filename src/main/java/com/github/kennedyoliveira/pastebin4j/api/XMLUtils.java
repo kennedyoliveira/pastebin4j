@@ -9,7 +9,7 @@ import java.io.StringReader;
  */
 class XMLUtils {
 
-    public static <T> T unMarshall(String xml, Class<T> clazz) {
+    public static <T> T unMarshal(String xml, Class<T> clazz) {
         return JAXB.unmarshal(new StringReader(xml), clazz);
     }
 }

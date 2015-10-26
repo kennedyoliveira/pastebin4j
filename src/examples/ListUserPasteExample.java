@@ -29,7 +29,7 @@ public class ListUserPasteExample {
         System.out.println("Title: " + paste.getTitle());
         System.out.println("Visibility: " + paste.getVisibility().name());
         System.out.println("Unique Key: " + paste.getKey());
-        System.out.println("Sintax Highlight: " + paste.getHighLight().name());
+        System.out.println("Syntax Highlight: " + paste.getHighLight().name());
         System.out.println("Paste Date: " + paste.getLocalPasteDate());
         System.out.println("Paste Expiration: " + paste.getExpiration());
         System.out.println("Paste Expiration Date: " + paste.getLocalExpirationDate());

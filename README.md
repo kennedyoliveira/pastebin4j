@@ -55,7 +55,7 @@ final Paste paste = pastes.get(0);
 System.out.println("Title: " + paste.getTitle());
 System.out.println("Visibility: " + paste.getVisibility().name());
 System.out.println("Unique Key: " + paste.getKey());
-System.out.println("Sintax Highlight: " + paste.getHighLight().name());
+System.out.println("Syntax Highlight: " + paste.getHighLight().name());
 System.out.println("Paste Date: " + paste.getLocalPasteDate());
 System.out.println("Paste Expiration: " + paste.getExpiration());
 System.out.println("Paste Expiration Date: " + paste.getLocalExpirationDate());
@@ -90,7 +90,7 @@ final String url = pasteBin.createPaste(paste);
 System.out.println("Paste created at url: " + url);
 ```
 
-The api gives you enums with all the information so you can just select it easy, doens't need to remember, the class `PasteHighLight` has all the SintaxHighLight currently implemented in the PasteBin, the class `PasteExpiration` has all the possible values for Expiration in a Paste and the `PasteVisibility` has the visibility status of a paste.
+The api gives you enums with all the information so you can just select it easy, doens't need to remember, the class `PasteHighLight` has all the SyntaxHighLight currently implemented in the PasteBin, the class `PasteExpiration` has all the possible values for Expiration in a Paste and the `PasteVisibility` has the visibility status of a paste.
 
 You can create a guest Paste by using a `GuestPaste` instead of a paste.
 

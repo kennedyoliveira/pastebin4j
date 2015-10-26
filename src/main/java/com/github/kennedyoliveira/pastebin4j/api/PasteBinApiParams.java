@@ -40,7 +40,7 @@ enum PasteBinApiParams {
      */
     PASTE_EXPIRE_DATE("api_paste_expire_date"),
     /**
-     * The sintax highligh for the paste.
+     * The syntax highligh for the paste.
      *
      * @see PasteHighLight
      * @see Paste#setHighLight(PasteHighLight)

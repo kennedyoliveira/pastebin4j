@@ -67,7 +67,7 @@ public class Paste extends BasePaste {
     private PasteExpiration expiration;
 
     /**
-     * Sintax highlight.
+     * Syntax highlight.
      */
     @XmlElement(name = "paste_format_short")
     private PasteHighLight highLight;

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 /**
- * <p>All the supported sintax highlights currently available.</p>
+ * <p>All the supported syntax highlights currently available.</p>
  *
  * @author kennedy
  * @since 1.0.0

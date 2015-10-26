@@ -104,7 +104,7 @@ public class UserInformation {
     }
 
     /**
-     * @return The default sintax highlight for the user.
+     * @return The default syntax highlight for the user.
      */
     public PasteHighLight getDefaultHighLight() {
         return defaultHighLight;

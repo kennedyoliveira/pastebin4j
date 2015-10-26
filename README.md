@@ -1,4 +1,5 @@
 # PasteBin4j
+[![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CR4K3FDKKK5FA&lc=BR&item_name=Kennedy%20Oliveira&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate with paypal if you feels like helping me out :D")
 Paste bin API Wrapper for Java
 
 Super simples and efficient library implementing all the options provided by the PasteBin api.
@@ -108,3 +109,10 @@ If you want to contrib you can fork the project and send pull requests, you can 
 
 ### Problems & Sugestions
 If you enconter any problem, please report at [Issues](https://github.com/kennedyoliveira/pastebin4j/issues) i'm work on it the fast as i can.
+
+## License
+This project is licensed with MIT License, so you can freely use, modify and distribute.
+
+## Donations
+If this projects helped you and you feels like helping me back, consider a donation, it'll help me alot!
+Anyway, if this helped you i'm glad i could help you!

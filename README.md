@@ -1,6 +1,7 @@
 # PasteBin4j
 [![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CR4K3FDKKK5FA&lc=BR&item_name=Kennedy%20Oliveira&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate with paypal if you feels like helping me out :D")
-Paste bin API Wrapper for Java
+
+#### Paste bin API Implementation for Java
 
 Super simples and efficient library implementing all the options provided by the PasteBin api.
 

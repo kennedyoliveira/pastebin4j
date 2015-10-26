@@ -29,7 +29,7 @@ All the interaction is provided by the `PasteBin` class, you need to create one 
 
 #### Listing your pastes:
 
-````
+```java
 // Configuration for the Credentials
 final String devKey = "dev-key";
 final String userName = "user-name";
@@ -65,11 +65,11 @@ System.out.println("Size: " + paste.getSize());
 
 // Prints all information of all pastes
 pastes.forEach(System.out::println);
-````
+```
 
 #### Creating a new Paste
 
-````
+```java
 final String devKey = "dev-key";
 final String userName = "user-name";
 final String password = "password";
@@ -88,15 +88,15 @@ paste.setContent("public class Teste { }");
 final String url = pasteBin.createPaste(paste);
 
 System.out.println("Paste created at url: " + url);
-````
+```
 
 The api gives you enums with all the information so you can just select it easy, doens't need to remember, the class `PasteHighLight` has all the SintaxHighLight currently implemented in the PasteBin, the class `PasteExpiration` has all the possible values for Expiration in a Paste and the `PasteVisibility` has the visibility status of a paste.
 
 You can create a guest Paste by using a `GuestPaste` instead of a paste.
 
-````
+```java
 Paste p = new GuestPaste();
-````
+```
 
 Even if you specify your `username` and `password` using this class your paste will be created as guest.
 
@@ -104,6 +104,17 @@ There are builder for creating the pastes that you can access by `Paste.newBuild
 
 ### More examples
 Check the `src/examples` for more examples, there you can see how to list trends pastes, get user information and more!
+
+### Running tests
+To run the tests you need to specify an devkey, username and password.
+
+Use it in command line like the following:
+
+```
+gradle -Dpastebin4j.devkey=your-dev-key -Dpastebin4j.username=your-user-name -Dpastebin4j.password=your-password test
+```
+
+**Important Note:** The tests will create some pastes, so expect it :D
 
 ### Contribution
 If you want to contrib you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the `PasteBinApi` interface and pass it to the `PasteBin` constructor.

@@ -10,7 +10,7 @@ import java.util.List;
 public class ListTrendsExample {
 
     public static void main(String[] args) {
-        final String devKey = "366ff4c4897ee6d9a67900624a4836ef";
+        final String devKey = "dev-key";
 
         final PasteBin pasteBin = new PasteBin(new AccountCredentials(devKey));
 

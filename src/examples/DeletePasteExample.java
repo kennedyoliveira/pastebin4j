@@ -10,9 +10,9 @@ import java.util.List;
 public class DeletePasteExample {
 
     public static void main(String[] args) {
-        final String devKey = "366ff4c4897ee6d9a67900624a4836ef";
-        final String userName = "KennedyOliviera";
-        final String password = "jAfpYepS";
+        final String devKey = "dev-key";
+        final String userName = "user-name";
+        final String password = "password";
 
         final PasteBin pasteBin = new PasteBin(new AccountCredentials(devKey, userName, password));
 

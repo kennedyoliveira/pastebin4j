@@ -6,6 +6,6 @@ jdk:
 sudo:
   false
 
-install: gradle assemble
+install: ./gradlew assemble
 
-script: gradle -Dpastebin4j.devkey=$PASTEBIN_DEV_KEY -Dpastebin4j.username=$PASTEBIN_USERNAME -Dpastebin4j.password='$PASTEBIN_PASSWORD' check
+script: ./gradlew -Dpastebin4j.devkey=$PASTEBIN_DEV_KEY -Dpastebin4j.username=$PASTEBIN_USERNAME -Dpastebin4j.password='$PASTEBIN_PASSWORD' check

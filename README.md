@@ -17,6 +17,23 @@ With this library you can easily:
 - Create User Session Key (Actually you doens't need to do that, the library will handle it, but if you want you can create too)
 - Get pastes contents (Currently just **PUBLIC** or **UNLISTED** pastes, **PRIVATE** pastes are not supported)
 
+## Table of Contents
+
+- [Installation](#installation)
+  - [Maven](#maven)
+  - [Local installation](#local-installation)
+- [Requirements](#requirements)
+- [Examples](#examples)
+  - [Core class](#core-class)
+  - [Listing your pastes:](#listing-your-pastes)
+  - [Creating a new Paste](#creating-a-new-paste)
+  - [More examples](#more-examples)
+- [Running tests](#running-tests)
+- [Contribution](#contribution)
+- [Problems & Suggestions](#problems--suggestions)
+- [License](#license)
+- [Donations](#donations)
+
 ## Installation
 
 ### Maven

@@ -14,7 +14,7 @@ With this library you can easily:
 - Delete pastes
 - List users pastes
 - Fetch user information
-- Create User Session Key (Actually you doens't need to do that, the library will handle it, but if you want you can create too)
+- Create User Session Key (Actually you doesn't need to do that, the library will handle it, but if you want you can create too)
 - Get pastes contents (Currently just **PUBLIC** or **UNLISTED** pastes, **PRIVATE** pastes are not supported)
 
 ## Table of Contents
@@ -167,7 +167,7 @@ Use it in command line like the following:
 **Important Note:** The tests will create some pastes, so expect it :D
 
 ## Contribution
-If you want to contrib you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the `PasteBinApi` interface and pass it to the `PasteBin` constructor.
+If you want to contribute you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the `PasteBinApi` interface and pass it to the `PasteBin` constructor.
 
 ## Problems & Suggestions
 If you encounter any problem, please report at [Issues](https://github.com/kennedyoliveira/pastebin4j/issues) i'm work on it the fast as i can.

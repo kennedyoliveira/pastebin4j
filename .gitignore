@@ -14,4 +14,3 @@ hs_err_pid*
 pastebin4j.iml
 build
 .gradle
-gradle.properties

@@ -15,6 +15,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'net.researchgate.release'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -46,8 +47,6 @@ tasks.withType(Test) {
     systemProperty 'pastebin4j.devkey', System.getProperty('pastebin4j.devkey')
     systemProperty 'pastebin4j.username', System.getProperty('pastebin4j.username')
     systemProperty 'pastebin4j.password', System.getProperty('pastebin4j.password')
-
-    println System.getProperty('pastebin4j.username')
 }
 
 jar {

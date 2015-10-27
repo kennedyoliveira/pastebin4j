@@ -1,7 +1,10 @@
 # PasteBin4j
+![Latest Release](https://github-basic-badges.herokuapp.com/release/kennedyoliveira/pastebin4j.svg?text=latest--release)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.kennedyoliveira/pastebin4j.svg)](http://search.maven.org/#artifactdetails%7Ccom.github.kennedyoliveira%7Cpastebin4j%7C1.0.0%7Cjar)
+![License](https://github-basic-badges.herokuapp.com/license/kennedyoliveira/pastebin4j.svg)
 [![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CR4K3FDKKK5FA&lc=BR&item_name=Kennedy%20Oliveira&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate with paypal if you feels like helping me out :D")
 
-#### Paste bin API Implementation for Java
+### Paste bin API Implementation for Java
 
 Super simples and efficient library implementing all the options provided by the PasteBin api.
 
@@ -14,11 +17,41 @@ With this library you can easily:
 - Create User Session Key (Actually you doens't need to do that, the library will handle it, but if you want you can create too)
 - Get pastes contents (Currently just **PUBLIC** or **UNLISTED** pastes, **PRIVATE** pastes are not supported)
 
-## Maven Support
+## Installation
 
-I'm working on it, maybe more 1 or 2 days and i'll release it into Maven repository, currently you'll need to download a copy of source and build it for you.
+### Maven
 
-## Requeriments
+You can add the following dependency to your maven or gradle based project:
+
+```xml
+<properties>
+    <pastebin4j.version>1.0.0<pastebin4j.version>
+<properties>
+
+<dependency>
+    <groupId>com.github.kennedyoliveira</groupId>
+    <artifactId>pastebin4j</artifactId>
+    <version>${pastebin4j.version}</version>
+</dependency
+```
+
+You can get the last version looking at the top in the "maven-central" badge and replace in your `pom.xml` or `build.gradle`
+
+### Local installation
+
+You can build the project with gradle using the following command to install to you local repository:
+
+```
+git clone https://github.com/kennedyoliveira/pastebin4j.git
+cd pastebin4j
+./gradlew clean build install -x test
+```
+
+Exclude the tests because for testing you need to provide a `devkey`, `username` and `password`.
+
+This command will build and install the project into your local maven repository and the artifacts generated will be in the `build/libs` directory inside your project folder.
+
+## Requirements
 
 To use the APi you'll need to have a developer key, that you can get from the PasteBin site, you go to this link: [Developer Key](http://pastebin.com/api#1).
 
@@ -27,7 +60,7 @@ To use the APi you'll need to have a developer key, that you can get from the Pa
 ### Core class
 All the interaction is provided by the `PasteBin` class, you need to create one passing your credentials and that is it!
 
-#### Listing your pastes:
+### Listing your pastes:
 
 ```java
 // Configuration for the Credentials
@@ -42,7 +75,7 @@ final PasteBin pasteBin = new PasteBin(new AccountCredentials(devKey, userName, 
 // Pretty easy, isn't?
 final List<Paste> pastes = pasteBin.listUserPastes();
 
-// The method nevers returns null, so you can check if the list is empty to see if you have pastes or not
+// The method never returns null, so you can check if the list is empty to see if you have pastes or not
 if (pastes.isEmpty()) {
     System.out.println("You don't have any pastes :(");
     return;
@@ -67,7 +100,7 @@ System.out.println("Size: " + paste.getSize());
 pastes.forEach(System.out::println);
 ```
 
-#### Creating a new Paste
+### Creating a new Paste
 
 ```java
 final String devKey = "dev-key";
@@ -90,7 +123,7 @@ final String url = pasteBin.createPaste(paste);
 System.out.println("Paste created at url: " + url);
 ```
 
-The api gives you enums with all the information so you can just select it easy, doens't need to remember, the class `PasteHighLight` has all the SyntaxHighLight currently implemented in the PasteBin, the class `PasteExpiration` has all the possible values for Expiration in a Paste and the `PasteVisibility` has the visibility status of a paste.
+The api gives you enums with all the information so you can just select it easy, doesn't need to remember, the class `PasteHighLight` has all the SyntaxHighLight currently implemented in the PasteBin, the class `PasteExpiration` has all the possible values for Expiration in a Paste and the `PasteVisibility` has the visibility status of a paste.
 
 You can create a guest Paste by using a `GuestPaste` instead of a paste.
 
@@ -105,26 +138,26 @@ There are builder for creating the pastes that you can access by `Paste.newBuild
 ### More examples
 Check the `src/examples` for more examples, there you can see how to list trends pastes, get user information and more!
 
-### Running tests
+## Running tests
 To run the tests you need to specify an devkey, username and password.
 
 Use it in command line like the following:
 
 ```
-gradle -Dpastebin4j.devkey=your-dev-key -Dpastebin4j.username=your-user-name -Dpastebin4j.password=your-password test
+.\gradlew -Dpastebin4j.devkey=your-dev-key -Dpastebin4j.username=your-user-name -Dpastebin4j.password=your-password test
 ```
 
 **Important Note:** The tests will create some pastes, so expect it :D
 
-### Contribution
+## Contribution
 If you want to contrib you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the `PasteBinApi` interface and pass it to the `PasteBin` constructor.
 
-### Problems & Sugestions
-If you enconter any problem, please report at [Issues](https://github.com/kennedyoliveira/pastebin4j/issues) i'm work on it the fast as i can.
+## Problems & Suggestions
+If you encounter any problem, please report at [Issues](https://github.com/kennedyoliveira/pastebin4j/issues) i'm work on it the fast as i can.
 
 ## License
 This project is licensed with MIT License, so you can freely use, modify and distribute.
 
 ## Donations
-If this projects helped you and you feels like helping me back, consider a donation, it'll help me alot!
+If this projects helped you and you feels like helping me back, consider a donation, it'll help me a lot!
 Anyway, if this helped you i'm glad i could help you!

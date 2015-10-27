@@ -46,6 +46,8 @@ tasks.withType(Test) {
     systemProperty 'pastebin4j.devkey', System.getProperty('pastebin4j.devkey')
     systemProperty 'pastebin4j.username', System.getProperty('pastebin4j.username')
     systemProperty 'pastebin4j.password', System.getProperty('pastebin4j.password')
+
+    println System.getProperty('pastebin4j.username')
 }
 
 jar {

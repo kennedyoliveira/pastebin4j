@@ -1,15 +1,34 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath 'net.researchgate:gradle-release:2.3.0'
+    }
+}
+
 group 'com.github.kennedyoliveira'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations:13.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
 // Custom configuration for intellij annotations
@@ -23,15 +42,59 @@ sourceSets {
     }
 }
 
-dependencies {
-    compile 'org.jetbrains:annotations:13.0'
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile 'org.hamcrest:hamcrest-all:1.3'
-}
-
+// Especial properties for running tests
 tasks.withType(Test) {
     systemProperty 'pastebin4j.devkey', System.getProperty('pastebin4j.devkey')
     systemProperty 'pastebin4j.username', System.getProperty('pastebin4j.username')
     systemProperty 'pastebin4j.password', System.getProperty('pastebin4j.password')
+}
+
+jar {
+    manifest {
+        attributes(
+                "Implementation-Title": "Pastebin4j",
+                "Implementation-Version": version,
+                "Implementation-Vendor": "Kennedy Oliveira"
+        )
+    }
+}
+
+modifyPom {
+    project {
+        name 'Pastebin4j'
+        description 'Implementation of the PasteBin public API..'
+        url 'https://github.com/kennedyoliveira/pastebin4j'
+        inceptionYear '2015'
+
+        scm {
+            url 'https://github.com/kennedyoliveira/pastebin4j'
+            connection 'scm:https://kennedyoliveira@github.com/kennedyoliveira/pastebin4j.git'
+            developerConnection 'scm:git://github.com/kennedyoliveira/pastebin4j.git'
+        }
+
+        licenses {
+            license {
+                name 'MIT License'
+                url 'https://opensource.org/licenses/MIT'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'kennedyoliveira'
+                name 'Kennedy Oliveira'
+                email 'kennedy.oliveira@outlook.com'
+                roles {
+                    role 'administrator'
+                    role 'developer'
+                    role 'owner'
+                }
+            }
+        }
+    }
+}
+
+nexus {
+    sign = true
 }

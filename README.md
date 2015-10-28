@@ -35,7 +35,7 @@ More information on tests in the [Running tests](#running-tests) section.
   - [Creating a new Paste](#creating-a-new-paste)
   - [More examples](#more-examples)
 - [Running tests](#running-tests)
-- [JavaDocs](#javadocs)
+- [JavaDocs](#javadoc)
 - [Contribution](#contribution)
 - [Problems & Suggestions](#problems--suggestions)
 - [License](#license)

@@ -54,9 +54,17 @@
 </ul>
 
 <h2>
+<a id="build-status-note" class="anchor" href="#build-status-note" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build Status Note</h2>
+
+<p>The build status may show as failed even if there are no errors, because the currently PasteBin API has a limit for free accounts, and since the tests use an free account to run, the limits can be already used in the day and the tests will fail, so, if the build is showing failed, doesn't mean it has any problem, can be just the free account limits.</p>
+
+<p>More information on tests in the <a href="#running-tests">Running tests</a> section. </p>
+
+<h2>
 <a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h2>
 
 <ul>
+<li><a href="#build-status-note">Build Status Note</a></li>
 <li>
 <a href="#installation">Installation</a>
 
@@ -77,6 +85,7 @@
 </ul>
 </li>
 <li><a href="#running-tests">Running tests</a></li>
+<li><a href="#javadoc">JavaDocs</a></li>
 <li><a href="#contribution">Contribution</a></li>
 <li><a href="#problems--suggestions">Problems &amp; Suggestions</a></li>
 <li><a href="#license">License</a></li>
@@ -99,7 +108,7 @@
     &lt;<span class="pl-ent">groupId</span>&gt;com.github.kennedyoliveira&lt;/<span class="pl-ent">groupId</span>&gt;
     &lt;<span class="pl-ent">artifactId</span>&gt;pastebin4j&lt;/<span class="pl-ent">artifactId</span>&gt;
     &lt;<span class="pl-ent">version</span>&gt;${pastebin4j.version}&lt;/<span class="pl-ent">version</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+&lt;/<span class="pl-ent">dependency</span></pre></div>
 
 <p>You can get the last version looking at the top in the "maven-central" badge and replace in your <code>pom.xml</code> or <code>build.gradle</code></p>
 
@@ -217,6 +226,12 @@ paste<span class="pl-k">.</span>setContent(<span class="pl-s"><span class="pl-pd
 </code></pre>
 
 <p><strong>Important Note:</strong> The tests will create some pastes, so expect it :D</p>
+
+<h2>
+<a id="javadoc" class="anchor" href="#javadoc" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaDoc</h2>
+
+<p>Check the JavaDocs here: <a href="http://kennedyoliveira.github.io/pastebin4j/javadoc/index.html">JavaDocs</a>.
+The JavaDocs are for the latest release.</p>
 
 <h2>
 <a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribution</h2>

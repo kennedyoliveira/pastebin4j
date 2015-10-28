@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Pastebin4j by kennedyoliveira</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Pastebin4j</h1>
+        <h2>Paste bin API Wrapper for Java</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/kennedyoliveira/pastebin4j/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/kennedyoliveira/pastebin4j/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/kennedyoliveira/pastebin4j" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="pastebin4j" class="anchor" href="#pastebin4j" aria-hidden="true"><span class="octicon octicon-link"></span></a>PasteBin4j</h1>
+
+<p><a href="https://travis-ci.org/kennedyoliveira/pastebin4j"><img src="https://travis-ci.org/kennedyoliveira/pastebin4j.svg?branch=master" alt="Build Status"></a>
+<img src="https://github-basic-badges.herokuapp.com/release/kennedyoliveira/pastebin4j.svg?text=latest--release" alt="Latest Release">
+<a href="http://search.maven.org/#artifactdetails%7Ccom.github.kennedyoliveira%7Cpastebin4j%7C1.0.0%7Cjar"><img src="https://img.shields.io/maven-central/v/com.github.kennedyoliveira/pastebin4j.svg" alt="Maven Central"></a>
+<img src="https://github-basic-badges.herokuapp.com/license/kennedyoliveira/pastebin4j.svg" alt="License">
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=CR4K3FDKKK5FA&amp;lc=BR&amp;item_name=Kennedy%20Oliveira&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted" title="Donate with paypal if you feels like helping me out :D"><img src="http://img.shields.io/paypal/donate.png?color=yellow" alt="PayPayl donate button"></a></p>
+
+<h3>
+<a id="paste-bin-api-implementation-for-java" class="anchor" href="#paste-bin-api-implementation-for-java" aria-hidden="true"><span class="octicon octicon-link"></span></a>Paste bin API Implementation for Java</h3>
+
+<p>Super simples and efficient library implementing all the options provided by the PasteBin api.</p>
+
+<p>With this library you can easily:</p>
+
+<ul>
+<li>Create pastes for users and as a Guest</li>
+<li>Delete pastes</li>
+<li>List users pastes</li>
+<li>Fetch user information</li>
+<li>Create User Session Key (Actually you doesn't need to do that, the library will handle it, but if you want you can create too)</li>
+<li>Get pastes contents (Currently just <strong>PUBLIC</strong> or <strong>UNLISTED</strong> pastes, <strong>PRIVATE</strong> pastes are not supported)</li>
+</ul>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li>
+<a href="#installation">Installation</a>
+
+<ul>
+<li><a href="#maven">Maven</a></li>
+<li><a href="#local-installation">Local installation</a></li>
+</ul>
+</li>
+<li><a href="#requirements">Requirements</a></li>
+<li>
+<a href="#examples">Examples</a>
+
+<ul>
+<li><a href="#core-class">Core class</a></li>
+<li><a href="#listing-your-pastes">Listing your pastes:</a></li>
+<li><a href="#creating-a-new-paste">Creating a new Paste</a></li>
+<li><a href="#more-examples">More examples</a></li>
+</ul>
+</li>
+<li><a href="#running-tests">Running tests</a></li>
+<li><a href="#contribution">Contribution</a></li>
+<li><a href="#problems--suggestions">Problems &amp; Suggestions</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#donations">Donations</a></li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="maven" class="anchor" href="#maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maven</h3>
+
+<p>You can add the following dependency to your maven or gradle based project:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">properties</span>&gt;
+    &lt;<span class="pl-ent">pastebin4j</span>.version&gt;1.0.0&lt;<span class="pl-ent">pastebin4j</span>.version&gt;
+&lt;<span class="pl-ent">properties</span>&gt;
+
+&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;com.github.kennedyoliveira&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;pastebin4j&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;${pastebin4j.version}&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span></pre></div>
+
+<p>You can get the last version looking at the top in the "maven-central" badge and replace in your <code>pom.xml</code> or <code>build.gradle</code></p>
+
+<h3>
+<a id="local-installation" class="anchor" href="#local-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Local installation</h3>
+
+<p>You can build the project with gradle using the following command to install to you local repository:</p>
+
+<pre><code>git clone https://github.com/kennedyoliveira/pastebin4j.git
+cd pastebin4j
+./gradlew clean build install -x test
+</code></pre>
+
+<p>Exclude the tests because for testing you need to provide a <code>devkey</code>, <code>username</code> and <code>password</code>.</p>
+
+<p>This command will build and install the project into your local maven repository and the artifacts generated will be in the <code>build/libs</code> directory inside your project folder.</p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>To use the APi you'll need to have a developer key, that you can get from the PasteBin site, you go to this link: <a href="http://pastebin.com/api#1">Developer Key</a>.</p>
+
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<h3>
+<a id="core-class" class="anchor" href="#core-class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Core class</h3>
+
+<p>All the interaction is provided by the <code>PasteBin</code> class, you need to create one passing your credentials and that is it!</p>
+
+<h3>
+<a id="listing-your-pastes" class="anchor" href="#listing-your-pastes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listing your pastes:</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// Configuration for the Credentials</span>
+<span class="pl-k">final</span> <span class="pl-smi">String</span> devKey <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>dev-key<span class="pl-pds">"</span></span>;
+<span class="pl-k">final</span> <span class="pl-smi">String</span> userName <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>user-name<span class="pl-pds">"</span></span>;
+<span class="pl-k">final</span> <span class="pl-smi">String</span> password <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>;
+
+<span class="pl-c">// Create a PasteBin object with the credentials</span>
+<span class="pl-k">final</span> <span class="pl-smi">PasteBin</span> pasteBin <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PasteBin</span>(<span class="pl-k">new</span> <span class="pl-smi">AccountCredentials</span>(devKey, userName, password));
+
+<span class="pl-c">// List all the pastes from the user!</span>
+<span class="pl-c">// Pretty easy, isn't?</span>
+<span class="pl-k">final</span> <span class="pl-k">List&lt;<span class="pl-smi">Paste</span>&gt;</span> pastes <span class="pl-k">=</span> pasteBin<span class="pl-k">.</span>listUserPastes();
+
+<span class="pl-c">// The method never returns null, so you can check if the list is empty to see if you have pastes or not</span>
+<span class="pl-k">if</span> (pastes<span class="pl-k">.</span>isEmpty()) {
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>You don't have any pastes :(<span class="pl-pds">"</span></span>);
+    <span class="pl-k">return</span>;
+}
+
+<span class="pl-c">// Getting a paste</span>
+<span class="pl-k">final</span> <span class="pl-smi">Paste</span> paste <span class="pl-k">=</span> pastes<span class="pl-k">.</span>get(<span class="pl-c1">0</span>);
+
+<span class="pl-c">// Current info on pastes</span>
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Title: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getTitle());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Visibility: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getVisibility()<span class="pl-k">.</span>name());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Unique Key: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getKey());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Syntax Highlight: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getHighLight()<span class="pl-k">.</span>name());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Paste Date: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getLocalPasteDate());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Paste Expiration: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getExpiration());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Paste Expiration Date: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getLocalExpirationDate());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Hits: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getHits());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>URL:  <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getUrl());
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Size: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> paste<span class="pl-k">.</span>getSize());
+
+<span class="pl-c">// Prints all information of all pastes</span>
+pastes<span class="pl-k">.</span>forEach(<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">::</span>println);</pre></div>
+
+<h3>
+<a id="creating-a-new-paste" class="anchor" href="#creating-a-new-paste" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating a new Paste</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">final</span> <span class="pl-smi">String</span> devKey <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>dev-key<span class="pl-pds">"</span></span>;
+<span class="pl-k">final</span> <span class="pl-smi">String</span> userName <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>user-name<span class="pl-pds">"</span></span>;
+<span class="pl-k">final</span> <span class="pl-smi">String</span> password <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">final</span> <span class="pl-smi">PasteBin</span> pasteBin <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">PasteBin</span>(<span class="pl-k">new</span> <span class="pl-smi">AccountCredentials</span>(devKey, userName, password));
+
+<span class="pl-c">//  Basic creation</span>
+<span class="pl-k">final</span> <span class="pl-smi">Paste</span> paste <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Paste</span>();
+
+paste<span class="pl-k">.</span>setTitle(<span class="pl-s"><span class="pl-pds">"</span>Testing API<span class="pl-pds">"</span></span>);
+paste<span class="pl-k">.</span>setExpiration(<span class="pl-smi">PasteExpiration</span><span class="pl-c1"><span class="pl-k">.</span>ONE_HOUR</span>);
+paste<span class="pl-k">.</span>setHighLight(<span class="pl-smi">PasteHighLight</span><span class="pl-k">.</span><span class="pl-smi">Java</span>);
+paste<span class="pl-k">.</span>setVisibility(<span class="pl-smi">PasteVisibility</span><span class="pl-c1"><span class="pl-k">.</span>UNLISTED</span>);
+paste<span class="pl-k">.</span>setContent(<span class="pl-s"><span class="pl-pds">"</span>public class Teste { }<span class="pl-pds">"</span></span>);
+
+<span class="pl-k">final</span> <span class="pl-smi">String</span> url <span class="pl-k">=</span> pasteBin<span class="pl-k">.</span>createPaste(paste);
+
+<span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>Paste created at url: <span class="pl-pds">"</span></span> <span class="pl-k">+</span> url);</pre></div>
+
+<p>The api gives you enums with all the information so you can just select it easy, doesn't need to remember, the class <code>PasteHighLight</code> has all the SyntaxHighLight currently implemented in the PasteBin, the class <code>PasteExpiration</code> has all the possible values for Expiration in a Paste and the <code>PasteVisibility</code> has the visibility status of a paste.</p>
+
+<p>You can create a guest Paste by using a <code>GuestPaste</code> instead of a paste.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Paste</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">GuestPaste</span>();</pre></div>
+
+<p>Even if you specify your <code>username</code> and <code>password</code> using this class your paste will be created as guest.</p>
+
+<p>There are builder for creating the pastes that you can access by <code>Paste.newBuilder()</code>.</p>
+
+<h3>
+<a id="more-examples" class="anchor" href="#more-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>More examples</h3>
+
+<p>Check the <code>src/examples</code> for more examples, there you can see how to list trends pastes, get user information and more!</p>
+
+<h2>
+<a id="running-tests" class="anchor" href="#running-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running tests</h2>
+
+<p>To run the tests you need to specify an devkey, username and password.</p>
+
+<p>Use it in command line like the following:</p>
+
+<pre><code>.\gradlew -Dpastebin4j.devkey=your-dev-key -Dpastebin4j.username=your-user-name -Dpastebin4j.password=your-password test
+</code></pre>
+
+<p><strong>Important Note:</strong> The tests will create some pastes, so expect it :D</p>
+
+<h2>
+<a id="contribution" class="anchor" href="#contribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribution</h2>
+
+<p>If you want to contribute you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the <code>PasteBinApi</code> interface and pass it to the <code>PasteBin</code> constructor.</p>
+
+<h2>
+<a id="problems--suggestions" class="anchor" href="#problems--suggestions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problems &amp; Suggestions</h2>
+
+<p>If you encounter any problem, please report at <a href="https://github.com/kennedyoliveira/pastebin4j/issues">Issues</a> i'm work on it the fast as i can.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This project is licensed with MIT License, so you can freely use, modify and distribute.</p>
+
+<h2>
+<a id="donations" class="anchor" href="#donations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Donations</h2>
+
+<p>If this projects helped you and you feels like helping me back, consider a donation, it'll help me a lot!
+Anyway, if this helped you i'm glad i could help you!</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>

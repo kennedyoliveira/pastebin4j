@@ -18,8 +18,13 @@ With this library you can easily:
 - Create User Session Key (Actually you doesn't need to do that, the library will handle it, but if you want you can create too)
 - Get pastes contents (Currently just **PUBLIC** or **UNLISTED** pastes, **PRIVATE** pastes are not supported)
 
-## Table of Contents
+## Build Status Note
+The build status may show as failed even if there are no errors, because the currently PasteBin API has a limit for free accounts, and since the tests use an free account to run, the limits can be already used in the day and the tests will fail, so, if the build is showing failed, doesn't mean it has any problem, can be just the free account limits.
 
+More information on tests in the [Running tests](#running-tests) section. 
+
+## Table of Contents
+- [Build Status Note](#build--status--note)
 - [Installation](#installation)
   - [Maven](#maven)
   - [Local installation](#local-installation)
@@ -166,6 +171,10 @@ Use it in command line like the following:
 ```
 
 **Important Note:** The tests will create some pastes, so expect it :D
+
+## JavaDoc
+Check the JavaDocs here: [JavaDocs](http://kennedyoliveira.github.io/pastebin4j/javadoc/index.html).
+The JavaDocs are for the latest release.
 
 ## Contribution
 If you want to contribute you can fork the project and send pull requests, you can even provide your own implementation of the API just by creating a class that implements the `PasteBinApi` interface and pass it to the `PasteBin` constructor.

@@ -1,4 +1,5 @@
 # PasteBin4j
+[![Build Status](https://travis-ci.org/kennedyoliveira/pastebin4j.svg?branch=master)](https://travis-ci.org/kennedyoliveira/pastebin4j)
 ![Latest Release](https://github-basic-badges.herokuapp.com/release/kennedyoliveira/pastebin4j.svg?text=latest--release)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.kennedyoliveira/pastebin4j.svg)](http://search.maven.org/#artifactdetails%7Ccom.github.kennedyoliveira%7Cpastebin4j%7C1.0.0%7Cjar)
 ![License](https://github-basic-badges.herokuapp.com/license/kennedyoliveira/pastebin4j.svg)

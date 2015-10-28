@@ -23,6 +23,9 @@ The build status may show as failed even if there are no errors, because the cur
 
 More information on tests in the [Running tests](#running-tests) section. 
 
+## Site
+Read the docs [here!](https://kennedyoliveira.github.io/pastebin4j/)
+
 ## Table of Contents
 - [Build Status Note](#build-status-note)
 - [Installation](#installation)

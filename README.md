@@ -24,7 +24,7 @@ The build status may show as failed even if there are no errors, because the cur
 More information on tests in the [Running tests](#running-tests) section. 
 
 ## Table of Contents
-- [Build Status Note](#build--status--note)
+- [Build Status Note](#build-status-note)
 - [Installation](#installation)
   - [Maven](#maven)
   - [Local installation](#local-installation)

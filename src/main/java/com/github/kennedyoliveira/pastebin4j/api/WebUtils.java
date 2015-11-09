@@ -32,6 +32,18 @@ class WebUtils {
      * @return The response.
      */
     public static Optional<String> get(@NotNull String url, @NotNull Map<Object, Object> parameters) {
+        return get(url, parameters, false);
+    }
+
+    /**
+     * Issues a get and return the response.
+     *
+     * @param url                   URL to get
+     * @param parameters            Parameters that will be attached to the url.
+     * @param keepResponseMultiLine Keep the response with multiple lines instead of returning one line
+     * @return The response.
+     */
+    public static Optional<String> get(@NotNull String url, @NotNull Map<Object, Object> parameters, boolean keepResponseMultiLine) {
         try {
             final URL url1 = new URL(url + "?" + getParams(parameters));
 
@@ -42,7 +54,7 @@ class WebUtils {
             urlConnection.addRequestProperty("Accept", Locale.getDefault().getLanguage());
             urlConnection.setConnectTimeout(30000);
 
-            final String s = doRequest(url, urlConnection, null);
+            final String s = doRequest(url, urlConnection, null, keepResponseMultiLine);
 
             return Optional.of(s);
         } catch (IOException e) {
@@ -70,7 +82,7 @@ class WebUtils {
 
             final String params = getParams(parameters);
 
-            String result = doRequest(url, urlConnection, params);
+            String result = doRequest(url, urlConnection, params, false);
 
             return Optional.of(result);
         } catch (IOException e) {
@@ -78,7 +90,7 @@ class WebUtils {
         }
     }
 
-    static String doRequest(@NotNull String url, @NotNull HttpURLConnection urlConnection, @Nullable String params) throws IOException {
+    static String doRequest(@NotNull String url, @NotNull HttpURLConnection urlConnection, @Nullable String params, boolean keepResponseMultiLine) throws IOException {
         if (isNotNullNorEmpty(params)) {
             urlConnection.setDoOutput(true);
 
@@ -94,8 +106,9 @@ class WebUtils {
 
         String result;
 
+
         try (BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
-            result = br.lines().collect(joining());
+            result = br.lines().collect(joining(keepResponseMultiLine ? "\n" : ""));
         }
 
         return result;

@@ -206,7 +206,7 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         params.put("i", paste.getKey());
 
-        return requiresValidResponse(get(PasteBinApiUrls.PASTE_RAW_URL, params)).get();
+        return requiresValidResponse(get(PasteBinApiUrls.PASTE_RAW_URL, params, true)).get();
     }
 
     public void updateUserSessionKey(@NotNull AccountCredentials accountCredentials) {

@@ -21,7 +21,7 @@ import static com.github.kennedyoliveira.pastebin4j.api.WebUtils.post;
 public class PasteBinApiImpl implements PasteBinApi {
 
     // Curried api post url function
-    private Function<Map<Object, Object>, Optional<String>> post = params -> WebUtils.post(PasteBinApiUrls.API_POST_URL, params);
+    private Function<Map<Object, Object>, Optional<String>> postFunc = params -> WebUtils.post(PasteBinApiUrls.API_POST_URL, params);
 
     /**
      * Function to help reduce verbosity of the simple methods.
@@ -43,18 +43,18 @@ public class PasteBinApiImpl implements PasteBinApi {
         return function.apply(params);
     }
 
-
     @Override
     public List<Paste> listTrends(@NotNull AccountCredentials accountCredentials) {
         Objects.requireNonNull(accountCredentials);
 
         return doPost(accountCredentials,
                       PasteBinApiOptions.TRENDS,
-                      params -> post.apply(params).map(r -> String.format("<pastes>%s</pastes>", r))
-                                    .map(r -> XMLUtils.unMarshal(r, Pastes.class))
-                                    .map(Pastes::getPastes)
-                                    .map(PasteInfoUpdater::updateDate)
-                                    .orElse(Collections.emptyList()));
+                      params -> postFunc.apply(params)
+                                        .map(r -> String.format("<pastes>%s</pastes>", r))
+                                        .map(r -> XMLUtils.unMarshal(r, Pastes.class))
+                                        .map(Pastes::getPastes)
+                                        .map(PasteInfoUpdater::updateDate)
+                                        .orElse(Collections.emptyList()));
     }
 
     @Override
@@ -82,11 +82,11 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         updateUserSessionKey(accountCredentials);
 
-        return doPost(accountCredentials, PasteBinApiOptions.USER_DETAILS,
+        return doPost(accountCredentials,
+                      PasteBinApiOptions.USER_DETAILS,
                       params -> {
                           final String userSessionKey = accountCredentials.getUserSessionKey()
-                                                                          .orElseThrow(() -> new RuntimeException(
-                                                                                  "To fetch user information you need an User Key, please, fetch the user key first!"));
+                                                                          .orElseThrow(() -> new RuntimeException("To fetch user information you need an User Key, please, fetch the user key first!"));
 
                           params.put(PasteBinApiParams.USER_KEY, userSessionKey);
 
@@ -152,7 +152,8 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         accountCredentials.getUserSessionKey().orElseThrow(() -> new NullPointerException("To list pastes you need an User Key, please, fetch the user key first!"));
 
-        return doPost(accountCredentials, PasteBinApiOptions.LIST,
+        return doPost(accountCredentials,
+                      PasteBinApiOptions.LIST,
                       params -> {
                           params.put(PasteBinApiParams.USER_KEY, accountCredentials.getUserSessionKey().get());
                           params.put(PasteBinApiParams.LIST_RESULT_LIMIT, limit);

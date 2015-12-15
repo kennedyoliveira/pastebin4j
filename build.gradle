@@ -24,29 +24,34 @@ repositories {
     mavenCentral()
 }
 
+// Custom configuration for intellij annotations
+configurations {
+    provided {
+        description = 'Provided scope for the main SourceSet'
+    }
+}
+
 dependencies {
-    compile 'org.jetbrains:annotations:15.0'
+    provided 'org.jetbrains:annotations:15.0'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
 }
 
-// Custom configuration for intellij annotations
-configurations {
-    provided
-}
-
 sourceSets {
     main {
-        compileClasspath += configurations.provided
+        compileClasspath += configurations.provided.asFileTree
     }
 }
 
-// Especial properties for running tests
-tasks.withType(Test) {
-    systemProperty 'pastebin4j.devkey', System.getProperty('pastebin4j.devkey')
-    systemProperty 'pastebin4j.username', System.getProperty('pastebin4j.username')
-    systemProperty 'pastebin4j.password', System.getProperty('pastebin4j.password')
+// Custom IntelliJ configuration
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 jar {
@@ -58,6 +63,25 @@ jar {
         )
     }
 }
+
+//
+// Tests configuration
+//
+
+// Especial properties for running tests
+test {
+    systemProperty 'pastebin4j.devkey', System.getProperty('pastebin4j.devkey')
+    systemProperty 'pastebin4j.username', System.getProperty('pastebin4j.username')
+    systemProperty 'pastebin4j.password', System.getProperty('pastebin4j.password')
+
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+    }
+}
+//
+// Release information
+//
 
 modifyPom {
     project {

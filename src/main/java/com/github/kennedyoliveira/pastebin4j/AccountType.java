@@ -20,9 +20,4 @@ public enum AccountType {
     AccountType(int type) {
         this.type = type;
     }
-
-    @Override
-    public String toString() {
-        return this.name();
-    }
 }

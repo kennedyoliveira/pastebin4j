@@ -95,11 +95,22 @@ public interface PasteBinApi {
     boolean deletePaste(@NotNull AccountCredentials accountCredentials, @NotNull String pasteKey);
 
     /**
-     * <p>Fetch the online contents of a paste.</p>
+     * <p>Fetch the online contents of a paste. This method only fetch contents of a {@code PUBLIC} or {@code UNLISTED} paste,
+     * to fetch a private paste use {@link #getPasteContent(AccountCredentials, Paste)}</p>
      *
      * @param paste The paste to fetch contents.
      * @return The content of the paste.
      * @throws NullPointerException if the {@code paste} is null or {@link Paste#key}
      */
     String getPasteContent(@NotNull Paste paste);
+
+    /**
+     * <p>Fetch the online contents of a paste including {@code PRIVATE} pastes.</p>
+     *
+     * @param paste              The paste to fetch contents.
+     * @param accountCredentials Account credentials to be used to log into the paste bin API.
+     * @return The content of the paste.
+     * @throws NullPointerException if the {@code paste} is null or {@link Paste#key}
+     */
+    String getPasteContent(@NotNull AccountCredentials accountCredentials, @NotNull Paste paste);
 }

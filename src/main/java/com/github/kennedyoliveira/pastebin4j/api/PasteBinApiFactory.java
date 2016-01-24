@@ -8,10 +8,10 @@ package com.github.kennedyoliveira.pastebin4j.api;
  */
 public class PasteBinApiFactory {
 
-
-    private PasteBinApiFactory() {}
-
     private static PasteBinApi defaultApi;
+
+    private PasteBinApiFactory() {
+    }
 
     /**
      * <p>Creates a default implementation for the API.</p>

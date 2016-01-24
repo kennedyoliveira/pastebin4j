@@ -26,7 +26,11 @@ enum PasteBinApiOptions {
     /**
      * Used to get information about the logged user.
      */
-    USER_DETAILS("userdetails");
+    USER_DETAILS("userdetails"),
+    /**
+     * Fetch the content of a paste, including private pastes.
+     */
+    SHOW_PASTE("show_paste");
 
     private final String option;
 

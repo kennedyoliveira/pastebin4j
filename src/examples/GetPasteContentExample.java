@@ -20,18 +20,14 @@ public class GetPasteContentExample {
 
         final List<Paste> pastes = pasteBin.listUserPastes();
 
-        // Currently implementation doens't support fetching
-        // private paste contents :( i'll work on that!
-        final Optional<Paste> paste = pastes.stream()
-                                            .filter(p -> p.getVisibility() != PasteVisibility.PRIVATE)
-                                            .findFirst();
-
-        if (!paste.isPresent()) {
-            System.out.println("You doesn't have any paste that isn't private :(");
-            return;
+        if(pastes.isEmpty()) {
+            System.out.println("No pastes to fetch the content :(");
+            System.exit(0);
         }
 
-        final String pasteContent = paste.get().fetchContent();
+        final Paste paste = paste.get(0);
+
+        final String pasteContent = pasteBin.getPasteContent(paste);
 
         System.out.println(pasteContent);
     }

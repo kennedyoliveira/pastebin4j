@@ -66,6 +66,8 @@ public class PasteBinTest {
         final String url = pasteBin.createPaste(paste);
 
         assertThat(url, CoreMatchers.containsString("pastebin.com/"));
+        assertThat(paste.getUrl(), is(equalTo(url)));
+        assertThat(paste.getKey(), is(notNullValue()));
     }
 
     @Test
@@ -119,9 +121,32 @@ public class PasteBinTest {
 
     @Test
     public void testGetPasteContent() throws Exception {
-        final String contents = pasteBin.getPasteContent(new Paste("rrPV9pzZ"));
+        final Paste paste = new Paste("rrPV9pzZ");
+
+        // New way to fetch content
+        final String contents = pasteBin.getPasteContent(paste);
 
         assertThat(contents, is("test for pastebin4j api"));
+
+        // Old way to fetch content
+        assertThat(paste.fetchContent(), is("test for pastebin4j api"));
+    }
+
+    @Test
+    public void testGetPrivatePasteContent() throws Exception {
+        final Paste paste = Paste.newBuilder()
+                                 .withContent("Private paste content for testing with Pastebin4j.")
+                                 .withExpiration(PasteExpiration.TEN_MINUTES)
+                                 .withHighLight(PasteHighLight.TEXT)
+                                 .withTitle("Private paste test")
+                                 .withVisibility(PasteVisibility.PRIVATE)
+                                 .build();
+
+        pasteBin.createPaste(paste);
+
+        final String pasteContent = pasteBin.getPasteContent(paste);
+
+        assertThat(pasteContent, is(equalTo("Private paste content for testing with Pastebin4j.")));
     }
 
     @Test

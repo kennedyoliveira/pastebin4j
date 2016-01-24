@@ -183,6 +183,15 @@ public class Paste extends BasePaste {
     }
 
     /**
+     * Sets a new URL for this paste.
+     *
+     * @param url new url.
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    /**
      * @return The url to this paste.
      */
     public String getUrl() {
@@ -255,7 +264,8 @@ public class Paste extends BasePaste {
     }
 
     /**
-     * <p>Fetch the online contents of a paste.</p>
+     * <p>Fetch the online contents of a paste. If the paste visibility is {@link PasteVisibility#PRIVATE} it 'll throw an exception,
+     * so to fetch private pastes use {@link PasteBin#getPasteContent(Paste)}.</p>
      * <p><b>Important Note:</b> This method will replace the {@link #content} with the fetched content!</p>
      *
      * @return the fetched content
@@ -313,6 +323,23 @@ public class Paste extends BasePaste {
      */
     public LocalDateTime getPasteDate() {
         return pasteDate;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Paste{");
+        sb.append("key='").append(key).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", highLight=").append(highLight);
+        sb.append(", visibility=").append(visibility);
+        sb.append(", expiration=").append(expiration);
+        sb.append(", localExpirationDate=").append(getLocalExpirationDate());
+        sb.append(", localPasteDate=").append(getLocalPasteDate());
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", size=").append(size);
+        sb.append(", hits=").append(hits);
+        sb.append('}');
+        return sb.toString();
     }
 
     /**
@@ -388,22 +415,5 @@ public class Paste extends BasePaste {
          * @return a {@code Paste} built with parameters of this {@code Paste.Builder}
          */
         public Paste build() {return new Paste(this);}
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Paste{");
-        sb.append("key='").append(key).append('\'');
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", highLight=").append(highLight);
-        sb.append(", visibility=").append(visibility);
-        sb.append(", expiration=").append(expiration);
-        sb.append(", localExpirationDate=").append(getLocalExpirationDate());
-        sb.append(", localPasteDate=").append(getLocalPasteDate());
-        sb.append(", url='").append(url).append('\'');
-        sb.append(", size=").append(size);
-        sb.append(", hits=").append(hits);
-        sb.append('}');
-        return sb.toString();
     }
 }

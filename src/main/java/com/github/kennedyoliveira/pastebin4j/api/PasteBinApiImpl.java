@@ -21,7 +21,8 @@ import static com.github.kennedyoliveira.pastebin4j.api.WebUtils.post;
 public class PasteBinApiImpl implements PasteBinApi {
 
     // Curried api post url function
-    private Function<Map<Object, Object>, Optional<String>> postFunc = params -> WebUtils.post(PasteBinApiUrls.API_POST_URL, params);
+    private Function<Map<Object, Object>, Optional<String>> postFunc = params -> WebUtils.post(PasteBinApiUrls.API_POST_URL,
+                                                                                               params);
 
     /**
      * Function to help reduce verbosity of the simple methods.
@@ -73,7 +74,8 @@ public class PasteBinApiImpl implements PasteBinApi {
         parameters.put(PasteBinApiParams.USER_NAME, accountCredentials.getUserName().get());
         parameters.put(PasteBinApiParams.USER_PASSWORD, accountCredentials.getPassword().get());
 
-        return requiresValidResponse(post(PasteBinApiUrls.API_LOGIN_URL, parameters)).orElseThrow(() -> new RuntimeException("Error while fething user session key."));
+        return requiresValidResponse(post(PasteBinApiUrls.API_LOGIN_URL, parameters))
+                .orElseThrow(() -> new RuntimeException("Error while fething user session key."));
     }
 
     @Override
@@ -86,11 +88,13 @@ public class PasteBinApiImpl implements PasteBinApi {
                       PasteBinApiOptions.USER_DETAILS,
                       params -> {
                           final String userSessionKey = accountCredentials.getUserSessionKey()
-                                                                          .orElseThrow(() -> new RuntimeException("To fetch user information you need an User Key, please, fetch the user key first!"));
+                                                                          .orElseThrow(() -> new RuntimeException(
+                                                                                  "To fetch user information you need an User Key, please, fetch the user key first!"));
 
                           params.put(PasteBinApiParams.USER_KEY, userSessionKey);
 
-                          final Optional<UserInformation> userInformation = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, params))
+                          final Optional<UserInformation> userInformation = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL,
+                                                                                                       params))
                                   .map(r -> XMLUtils.unMarshal(r, UserInformation.class));
 
                           if (userInformation.isPresent())
@@ -136,7 +140,13 @@ public class PasteBinApiImpl implements PasteBinApi {
         if (paste.getExpiration() != null)
             parameters.put(PasteBinApiParams.PASTE_EXPIRE_DATE, paste.getExpiration());
 
-        return requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, parameters)).get();
+        final String pasteUrl = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, parameters)).get();
+
+        // Update the paste key from the URL to the paste
+        paste.setKey(PasteUtil.getPasteKeyFromUrl(pasteUrl));
+        paste.setUrl(pasteUrl);
+
+        return pasteUrl;
     }
 
     @Override
@@ -150,7 +160,8 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         updateUserSessionKey(accountCredentials);
 
-        accountCredentials.getUserSessionKey().orElseThrow(() -> new NullPointerException("To list pastes you need an User Key, please, fetch the user key first!"));
+        accountCredentials.getUserSessionKey().orElseThrow(() -> new NullPointerException(
+                "To list pastes you need an User Key, please, fetch the user key first!"));
 
         return doPost(accountCredentials,
                       PasteBinApiOptions.LIST,
@@ -183,7 +194,8 @@ public class PasteBinApiImpl implements PasteBinApi {
             throw new NullPointerException("The paste key can't be null!");
 
         accountCredentials.getUserSessionKey()
-                          .orElseThrow(() -> new RuntimeException("To delete a key you need a user session key, please, fetch the user session key first!"));
+                          .orElseThrow(() -> new RuntimeException(
+                                  "To delete a key you need a user session key, please, fetch the user session key first!"));
 
         return doPost(accountCredentials, PasteBinApiOptions.DELETE,
                       params -> {
@@ -200,14 +212,31 @@ public class PasteBinApiImpl implements PasteBinApi {
     public String getPasteContent(@NotNull Paste paste) {
         Objects.requireNonNull(paste);
 
-        if (paste.getVisibility() == PasteVisibility.PRIVATE)
+        if (paste.getVisibility() == PasteVisibility.PRIVATE) {
             throw new IllegalStateException("Getting private paste content not supported.");
+        }
 
         Map<Object, Object> params = new HashMap<>();
 
         params.put("i", paste.getKey());
 
         return requiresValidResponse(get(PasteBinApiUrls.PASTE_RAW_URL, params, true)).get();
+    }
+
+    @Override
+    public String getPasteContent(@NotNull AccountCredentials accountCredentials, @NotNull Paste paste) {
+        Objects.requireNonNull(paste);
+
+        if (paste.getVisibility() == PasteVisibility.PRIVATE) {
+            return doPost(accountCredentials, PasteBinApiOptions.SHOW_PASTE, params -> {
+                params.put(PasteBinApiParams.USER_KEY, accountCredentials.getUserSessionKey().get());
+                params.put(PasteBinApiParams.UNIQUE_PASTE_KEY, paste.getKey().toUpperCase());
+
+                return requiresValidResponse(post(PasteBinApiUrls.API_PASTE_CONTENT_URL, params)).get();
+            });
+        } else {
+            return getPasteContent(paste);
+        }
     }
 
     public void updateUserSessionKey(@NotNull AccountCredentials accountCredentials) {

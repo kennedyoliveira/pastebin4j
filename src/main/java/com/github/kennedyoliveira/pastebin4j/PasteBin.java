@@ -130,13 +130,12 @@ public class PasteBin {
 
     /**
      * <p>Fetchs the content of a paste.</p>
-     * <p>The currently implementation only fetchs content of pastes {@link PasteVisibility#PUBLIC} or {@link PasteVisibility#UNLISTED}.</p>
      *
      * @param paste Paste to have the contents fetched.
      * @return The content of the paste.
-     * @throws NullPointerException if the {@code paste} is null or if {@link Paste#visibility} is {@link PasteVisibility#PRIVATE}
+     * @throws NullPointerException if the {@code paste} is null.
      */
     public String getPasteContent(@NotNull Paste paste) {
-        return pasteBinApi.getPasteContent(paste);
+        return pasteBinApi.getPasteContent(accountCredentials, paste);
     }
 }

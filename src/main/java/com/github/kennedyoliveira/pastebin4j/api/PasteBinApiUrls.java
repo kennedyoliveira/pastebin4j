@@ -21,6 +21,11 @@ class PasteBinApiUrls {
     public static final String API_LOGIN_URL = "http://pastebin.com/api/api_login.php";
 
     /**
+     * URL For fetching paste contents
+     */
+    public static final String API_PASTE_CONTENT_URL = "http://pastebin.com/api/api_raw.php";
+
+    /**
      * <p>This isn't for the API, but used to fetch raw paste contents.</p>
      * <p>Currently, it used a parameter {@code i} with the unique paste key to fetch the contents</p>
      */

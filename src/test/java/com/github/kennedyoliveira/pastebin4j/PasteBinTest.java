@@ -82,7 +82,7 @@ public class PasteBinTest {
     @Test
     public void testDeletePaste() throws Exception {
         final Paste createdPaste = Paste.newBuilder()
-                                        .withTitle("Automated pastebin4j testing")
+                                        .withTitle("Automated pastebin4j testing - " + UUID.randomUUID().toString())
                                         .withContent(UUID.randomUUID().toString())
                                         .withVisibility(PasteVisibility.PUBLIC)
                                         .withHighLight(PasteHighLight.TEXT)
@@ -134,11 +134,13 @@ public class PasteBinTest {
 
     @Test
     public void testGetPrivatePasteContent() throws Exception {
+        String content = UUID.randomUUID().toString();
+
         final Paste paste = Paste.newBuilder()
-                                 .withContent("Private paste content for testing with Pastebin4j.")
+                                 .withTitle("Private paste test " + UUID.randomUUID().toString())
+                                 .withContent(content)
                                  .withExpiration(PasteExpiration.TEN_MINUTES)
                                  .withHighLight(PasteHighLight.TEXT)
-                                 .withTitle("Private paste test")
                                  .withVisibility(PasteVisibility.PRIVATE)
                                  .build();
 
@@ -146,7 +148,7 @@ public class PasteBinTest {
 
         final String pasteContent = pasteBin.getPasteContent(paste);
 
-        assertThat(pasteContent, is(equalTo("Private paste content for testing with Pastebin4j.")));
+        assertThat(pasteContent, is(equalTo(content)));
     }
 
     @Test

@@ -1,0 +1,12 @@
+.idea/copyright
+gradle
+src
+javadoc/com/.DS_Store
+.gradle
+pastebin4j.iml
+.DS_Store
+.idea/libraries/Gradle__org_jetbrains_annotations_15_0.xml
+.idea/libraries/Gradle__junit_junit_4_12.xml
+.idea/codeStyleSettings.xml
+javadoc/.DS_Store
+build

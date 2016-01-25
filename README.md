@@ -16,7 +16,7 @@ With this library you can easily:
 - List users pastes
 - Fetch user information
 - Create User Session Key (Actually you doesn't need to do that, the library will handle it, but if you want you can create too)
-- Get pastes contents (Currently just **PUBLIC** or **UNLISTED** pastes, **PRIVATE** pastes are not supported)
+- Get pastes contents (All pastes **PUBLIC**, **UNLISTED** and **PRIVATE**)
 
 ## Build Status Note
 The build status may show as failed even if there are no errors, because the currently PasteBin API has a limit for free accounts, and since the tests use an free account to run, the limits can be already used in the day and the tests will fail, so, if the build is showing failed, doesn't mean it has any problem, can be just the free account limits.
@@ -52,7 +52,7 @@ You can add the following dependency to your maven or gradle based project:
 
 ```xml
 <properties>
-    <pastebin4j.version>1.0.0<pastebin4j.version>
+    <pastebin4j.version>1.1.0<pastebin4j.version>
 <properties>
 
 <dependency>

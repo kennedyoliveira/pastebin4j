@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 
 /**
@@ -17,5 +18,20 @@ public class PasteUtilTest {
         final String pasteBinUrl = "http://pastebin.com/NCSQ6k9N";
 
         assertThat("NCSQ6k9N", is(equalTo(PasteUtil.getPasteKeyFromUrl(pasteBinUrl))));
+    }
+
+    @Test
+    public void testGetPasteKeyFromUrlNullCase() throws Exception {
+        assertThat(PasteUtil.getPasteKeyFromUrl(null), is(nullValue()));
+    }
+
+    @Test
+    public void testGetPasteKeyFromInvalidUrl() throws Exception {
+        try {
+            PasteUtil.getPasteKeyFromUrl("http//google.com");
+            fail("Should throwed IllegalArgumentException");
+        } catch (Exception e) {
+        }
+
     }
 }

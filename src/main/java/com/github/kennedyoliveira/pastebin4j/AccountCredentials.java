@@ -60,28 +60,10 @@ public class AccountCredentials {
     }
 
     /**
-     * Sets a new password to log into the API.
-     *
-     * @param password new Password.
-     */
-    public void setPassword(String password) {
-        this.password = Optional.ofNullable(password);
-    }
-
-    /**
      * @return The username to log into the api.
      */
     public Optional<String> getUserName() {
         return userName;
-    }
-
-    /**
-     * Sets a new username to log into the API.
-     *
-     * @param userName new username
-     */
-    public void setUserName(String userName) {
-        this.userName = Optional.ofNullable(userName);
     }
 
     /**

@@ -1,9 +1,12 @@
 package com.github.kennedyoliveira.pastebin4j;
 
-import org.hamcrest.CoreMatchers;
+import org.jetbrains.annotations.NotNull;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +22,7 @@ public class PasteBinTest {
 
     AccountCredentials accountCredentials;
     PasteBin pasteBin;
+    List<Paste> createdPastes;
 
     @Before
     public void setUp() throws Exception {
@@ -39,6 +43,19 @@ public class PasteBinTest {
 
         accountCredentials = new AccountCredentials(devkey, username, password);
         pasteBin = new PasteBin(accountCredentials);
+        createdPastes = new ArrayList<>();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        try {
+            // delete all pastes
+            if (pasteBin != null && !createdPastes.isEmpty())
+                createdPastes.forEach(pasteBin::deletePaste);
+        } catch (Exception e) {
+            System.out.println("Error deleting the created pastes");
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -65,7 +82,28 @@ public class PasteBinTest {
 
         final String url = pasteBin.createPaste(paste);
 
-        assertThat(url, CoreMatchers.containsString("pastebin.com/"));
+        createdPastes.add(paste);
+
+        assertThat(url, containsString("pastebin.com/"));
+        assertThat(paste.getUrl(), is(equalTo(url)));
+        assertThat(paste.getKey(), is(notNullValue()));
+    }
+
+    @Test
+    public void testCreatePasteUsingThePasteItself() throws Exception {
+        final Paste paste = Paste.newBuilder()
+                                 .withTitle("pastebin4j")
+                                 .withContent(UUID.randomUUID().toString())
+                                 .withVisibility(PasteVisibility.PUBLIC)
+                                 .withHighLight(PasteHighLight.TEXT)
+                                 .withExpiration(PasteExpiration.ONE_MONTH)
+                                 .build();
+
+        final String url = paste.paste(pasteBin);
+
+        createdPastes.add(paste);
+
+        assertThat(url, containsString("pastebin.com/"));
         assertThat(paste.getUrl(), is(equalTo(url)));
         assertThat(paste.getKey(), is(notNullValue()));
     }
@@ -117,7 +155,7 @@ public class PasteBinTest {
         final List<Paste> pastes = pasteBin.listTrendingPastes();
 
         // assertThat(pastes, allOf(notNullValue(), hasSize(18))); // API should return 18 acording to docs, but this is not the case :(
-        assertThat(pastes, allOf(notNullValue()));
+        assertThat(pastes, is(notNullValue()));
         assertThat(pastes.size(), greaterThan(0));
     }
 
@@ -148,13 +186,96 @@ public class PasteBinTest {
 
         pasteBin.createPaste(paste);
 
+        createdPastes.add(paste);
+
         final String pasteContent = pasteBin.getPasteContent(paste);
 
         assertThat(pasteContent, is(equalTo(content)));
     }
 
     @Test
+    public void createGuestPaste() throws Exception {
+        final String content = UUID.randomUUID().toString();
+        final String title = "PasteBin4j test -> " + LocalDateTime.now().toString();
+
+        final GuestPaste guestPaste = new GuestPaste();
+        guestPaste.setContent(content);
+        guestPaste.setTitle(title);
+        guestPaste.setExpiration(PasteExpiration.TEN_MINUTES);
+        guestPaste.setVisibility(PasteVisibility.PUBLIC);
+        guestPaste.setHighLight(PasteHighLight.TEXT);
+        guestPaste.paste(new AccountCredentials(System.getProperty("pastebin4j.devkey")));
+
+        assertThat(guestPaste.getUrl(), is(allOf(notNullValue(), containsString("pastebin.com/"))));
+
+        // checks if the paste was created for my user, shouldn't be
+        final boolean pasteCreatedAsUserPaste = pasteBin.listUserPastes().stream().noneMatch(p -> title.equalsIgnoreCase(p.getTitle()));
+
+        assertThat(pasteCreatedAsUserPaste, is(true));
+    }
+
+    @Test
+    public void testPasteToString() throws Exception {
+        final Paste paste = Paste.newBuilder()
+                                 .withTitle("pastebin4j")
+                                 .withContent(UUID.randomUUID().toString())
+                                 .withVisibility(PasteVisibility.PUBLIC)
+                                 .withHighLight(PasteHighLight.TEXT)
+                                 .withExpiration(PasteExpiration.ONE_MONTH)
+                                 .build();
+
+        final String pasteInfo = paste.toString();
+
+        assertThat(pasteInfo, is(allOf(notNullValue(), containsString("key="), containsString("Paste{"), containsString("url"))));
+    }
+
+    @Test
+    public void testCreatePasteWithConstructor() throws Exception {
+        final String content = UUID.randomUUID().toString();
+        final String title = "PasteBin4j - " + LocalDateTime.now().toString();
+
+        final Paste paste = new Paste(title, content, PasteHighLight.TEXT, PasteExpiration.TEN_MINUTES, PasteVisibility.UNLISTED);
+        final String url = paste.paste(accountCredentials);
+
+        createdPastes.add(paste);
+
+        assertThat(url, containsString("pastebin.com/"));
+        assertThat(paste.getUrl(), is(equalTo(url)));
+        assertThat(paste.getKey(), is(notNullValue()));
+    }
+
+    @Test
     public void test_get_account_credentials() throws Exception {
         assertThat(pasteBin.getAccountCredentials(), is(this.accountCredentials));
+    }
+
+    @Test
+    public void testBuilder() throws Exception {
+        final Paste paste = Paste.newBuilder()
+                                 .withContent("content")
+                                 .withTitle("title")
+                                 .withVisibility(PasteVisibility.PRIVATE)
+                                 .withHighLight(PasteHighLight.Java)
+                                 .withExpiration(PasteExpiration.ONE_MONTH)
+                                 .build();
+
+        assertThat(paste.getTitle(), is("title"));
+
+        final Paste copyPaste = Paste.newBuilder(paste)
+                                     .withTitle("Another title")
+                                     .build();
+
+        assertThat(copyPaste.getTitle(), is("Another title"));
+        assertThat(copyPaste.getContent(), is("content"));
+        assertThat(copyPaste.getVisibility(), is(PasteVisibility.PRIVATE));
+        assertThat(copyPaste.getHighLight(), is(PasteHighLight.Java));
+        assertThat(copyPaste.getExpiration(), is(PasteExpiration.ONE_MONTH));
+    }
+
+    @Test
+    public void testListUserPastesWithLimit() throws Exception {
+        @NotNull final List<Paste> userPastes = pasteBin.listUserPastes(1);
+
+        assertThat(userPastes, hasSize(1));
     }
 }

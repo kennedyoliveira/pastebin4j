@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Function;
 
+import static com.github.kennedyoliveira.pastebin4j.api.PasteBinApiParams.*;
 import static com.github.kennedyoliveira.pastebin4j.api.ResponseUtils.requiresValidResponse;
 import static com.github.kennedyoliveira.pastebin4j.api.StringUtils.isNotNullNorEmpty;
 import static com.github.kennedyoliveira.pastebin4j.api.StringUtils.isNullOrEmpty;
@@ -21,8 +22,7 @@ import static com.github.kennedyoliveira.pastebin4j.api.WebUtils.post;
 public class PasteBinApiImpl implements PasteBinApi {
 
     // Curried api post url function
-    private Function<Map<Object, Object>, Optional<String>> postFunc = params -> WebUtils.post(PasteBinApiUrls.API_POST_URL,
-                                                                                               params);
+    private Function<Map<Object, Object>, Optional<String>> postFunc = params -> post(PasteBinApiUrls.API_POST_URL, params);
 
     /**
      * Function to help reduce verbosity of the simple methods.
@@ -37,7 +37,7 @@ public class PasteBinApiImpl implements PasteBinApi {
         Map<Object, Object> params = new HashMap<>();
 
         if (accountCredentials != null)
-            params.put(PasteBinApiParams.DEV_KEY, accountCredentials.getDevKey());
+            params.put(DEV_KEY, accountCredentials.getDevKey());
 
         params.put(PasteBinApiParams.OPTION, option);
 
@@ -62,17 +62,11 @@ public class PasteBinApiImpl implements PasteBinApi {
     public String fetchUserKey(@NotNull AccountCredentials accountCredentials) {
         Objects.requireNonNull(accountCredentials);
 
-        if (!accountCredentials.getUserName().isPresent())
-            throw new IllegalArgumentException("Missing username!");
-
-        if (!accountCredentials.getPassword().isPresent())
-            throw new IllegalArgumentException("Missing password!");
-
         Map<Object, Object> parameters = new HashMap<>();
 
-        parameters.put(PasteBinApiParams.DEV_KEY, accountCredentials.getDevKey());
-        parameters.put(PasteBinApiParams.USER_NAME, accountCredentials.getUserName().get());
-        parameters.put(PasteBinApiParams.USER_PASSWORD, accountCredentials.getPassword().get());
+        parameters.put(DEV_KEY, accountCredentials.getDevKey());
+        parameters.put(USER_NAME, accountCredentials.getUserName().orElseThrow(() -> new IllegalArgumentException("Missing username!")));
+        parameters.put(USER_PASSWORD, accountCredentials.getPassword().orElseThrow(() -> new IllegalArgumentException("Missing password!")));
 
         return requiresValidResponse(post(PasteBinApiUrls.API_LOGIN_URL, parameters))
                 .orElseThrow(() -> new RuntimeException("Error while fething user session key."));
@@ -118,7 +112,7 @@ public class PasteBinApiImpl implements PasteBinApi {
         Map<Object, Object> parameters = new HashMap<>();
 
         //Required
-        parameters.put(PasteBinApiParams.DEV_KEY, accountCredentials.getDevKey());
+        parameters.put(DEV_KEY, accountCredentials.getDevKey());
         parameters.put(PasteBinApiParams.OPTION, PasteBinApiOptions.PASTE);
         parameters.put(PasteBinApiParams.PASTE_CODE, paste.getContent());
 
@@ -191,7 +185,7 @@ public class PasteBinApiImpl implements PasteBinApi {
         Objects.requireNonNull(accountCredentials);
 
         if (isNullOrEmpty(pasteKey))
-            throw new NullPointerException("The paste key can't be null!");
+            throw new IllegalArgumentException("The paste key can't be null!");
 
         accountCredentials.getUserSessionKey()
                           .orElseThrow(() -> new RuntimeException(
@@ -211,10 +205,6 @@ public class PasteBinApiImpl implements PasteBinApi {
     @Override
     public String getPasteContent(@NotNull Paste paste) {
         Objects.requireNonNull(paste);
-
-        if (paste.getVisibility() == PasteVisibility.PRIVATE) {
-            throw new IllegalStateException("Getting private paste content not supported.");
-        }
 
         Map<Object, Object> params = new HashMap<>();
 

@@ -28,7 +28,8 @@ public interface PasteBinApi {
      *
      * @param accountCredentials Account credentials to be used to log into the paste bin API.
      * @return The new User Session Key created by the API.
-     * @throws NullPointerException if the {@code accountCredentials} is null
+     * @throws NullPointerException     if the {@code accountCredentials} is null
+     * @throws IllegalArgumentException if {@link AccountCredentials#getUserName()} or {@link AccountCredentials#getPassword()} is null
      */
     String fetchUserKey(@NotNull AccountCredentials accountCredentials);
 
@@ -90,7 +91,7 @@ public interface PasteBinApi {
      * @param accountCredentials Account credentials to be used to log into the paste bin API.
      * @param pasteKey           The unique key of a paste.
      * @return {@code true} if delete is succefully complete, false otherwise
-     * @throws NullPointerException if the {@code accountCredentials} is null
+     * @throws NullPointerException if the {@code accountCredentials} is null or if the {@code pasteKey} is null
      */
     boolean deletePaste(@NotNull AccountCredentials accountCredentials, @NotNull String pasteKey);
 

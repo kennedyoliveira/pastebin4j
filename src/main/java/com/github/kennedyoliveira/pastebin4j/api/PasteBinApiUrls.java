@@ -7,9 +7,6 @@ package com.github.kennedyoliveira.pastebin4j.api;
  * @since 1.0.0
  */
 class PasteBinApiUrls {
-
-    private PasteBinApiUrls(){}
-
     /**
      * URL for interacting with all the options from the API.
      */
@@ -30,4 +27,12 @@ class PasteBinApiUrls {
      * <p>Currently, it used a parameter {@code i} with the unique paste key to fetch the contents</p>
      */
     public static final String PASTE_RAW_URL = "http://pastebin.com/raw.php";
+
+    /**
+     * <p>The URL base from the PasteBin Site.</p>
+     */
+    public static final String PASTEBIN_URL = "http://pastebin.com/";
+
+    private PasteBinApiUrls() {
+    }
 }

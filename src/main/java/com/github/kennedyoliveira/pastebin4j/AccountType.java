@@ -12,12 +12,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 @XmlEnum
 public enum AccountType {
 
-    @XmlEnumValue("0")NORMAL(0),
-    @XmlEnumValue("1")PRO(1);
-
-    private final int type;
-
-    AccountType(int type) {
-        this.type = type;
-    }
+    @XmlEnumValue("0")NORMAL,
+    @XmlEnumValue("1")PRO
 }

@@ -44,9 +44,6 @@ public class UserInformation {
     @XmlElement(name = "user_format_short")
     private PasteHighLight defaultHighLight;
 
-    public UserInformation() {
-    }
-
     /**
      * @return The type of the user account.
      */

@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.Optional;
 
+import static junit.framework.TestCase.fail;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -22,6 +23,7 @@ public class AccountCredentialsTest {
         expectedException.expect(NullPointerException.class);
 
         new AccountCredentials(null);
+        fail("should throw nullpointerexception");
     }
 
     @Test

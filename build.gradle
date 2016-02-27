@@ -1,21 +1,27 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
+    repositories { jcenter() }
     dependencies {
         classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'net.researchgate:gradle-release:2.3.0'
     }
 }
 
-group 'com.github.kennedyoliveira'
+plugins {
+    id 'nebula.provided-base' version '3.0.3'
+    id 'nebula.nebula-release' version '4.0.1'
+}
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'com.bmuschko.nexus'
-apply plugin: 'net.researchgate.release'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
+apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+group 'com.github.kennedyoliveira'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -24,16 +30,36 @@ repositories {
     mavenCentral()
 }
 
-// Custom configuration for intellij annotations
-configurations {
-    provided {
-        description = 'Provided scope for the main SourceSet'
+pmd {
+    toolVersion = '5.4.1'
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
     }
 }
 
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
+jacoco {
+    toolVersion = '0.7.6.201602180812'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        html {
+            enabled = true
+        }
+        xml {
+            enabled = false
+        }
     }
 }
 

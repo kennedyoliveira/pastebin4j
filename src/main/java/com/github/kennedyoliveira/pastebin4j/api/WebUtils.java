@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -106,8 +107,7 @@ class WebUtils {
 
         String result;
 
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), Charset.forName("UTF-8")))) {
             result = br.lines().collect(joining(keepResponseMultiLine ? "\n" : ""));
         }
 

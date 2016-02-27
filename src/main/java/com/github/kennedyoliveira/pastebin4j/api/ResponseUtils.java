@@ -22,7 +22,7 @@ class ResponseUtils {
 
         final String resp = response.get();
 
-        if (resp.toLowerCase().contains("bad api request"))
+        if (resp.toLowerCase().contains("bad api request,"))
             throw new RuntimeException(("Error: " + resp));
     }
 

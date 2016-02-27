@@ -1,5 +1,7 @@
 # PasteBin4j
 [![Build Status](https://travis-ci.org/kennedyoliveira/pastebin4j.svg?branch=master)](https://travis-ci.org/kennedyoliveira/pastebin4j)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/17d61a85661b4559a45def46c61d4116)](https://www.codacy.com/app/kennedy-oliveira/pastebin4j)
+[![codecov.io](https://codecov.io/github/kennedyoliveira/pastebin4j/coverage.svg?branch=master)](https://codecov.io/github/kennedyoliveira/pastebin4j?branch=master)
 ![Latest Release](https://github-basic-badges.herokuapp.com/release/kennedyoliveira/pastebin4j.svg?text=latest--release)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.kennedyoliveira/pastebin4j.svg)](http://search.maven.org/#artifactdetails%7Ccom.github.kennedyoliveira%7Cpastebin4j%7C1.0.0%7Cjar)
 ![License](https://github-basic-badges.herokuapp.com/license/kennedyoliveira/pastebin4j.svg)

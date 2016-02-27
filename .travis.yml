@@ -4,17 +4,13 @@ jdk:
   - oraclejdk8
 
 sudo:
-  required
-
-before_install:
-  - sudo pip install codecov
+  false
 
 install:
   ./gradlew assemble
 
 script:
-  ./gradlew -Dpastebin4j.devkey=$PASTEBIN_DEV_KEY -Dpastebin4j.username=$PASTEBIN_USERNAME -Dpastebin4j.password=$PASTEBIN_PASSWORD check
+  ./gradlew -Dpastebin4j.devkey=$PASTEBIN_DEV_KEY -Dpastebin4j.username=$PASTEBIN_USERNAME -Dpastebin4j.password=$PASTEBIN_PASSWORD clean check jacocoTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - codecov

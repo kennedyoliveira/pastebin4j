@@ -39,7 +39,7 @@ public class PasteBinApiImpl implements PasteBinApi {
         if (accountCredentials != null)
             params.put(DEV_KEY, accountCredentials.getDevKey());
 
-        params.put(PasteBinApiParams.OPTION, option);
+        params.put(OPTION, option);
 
         return function.apply(params);
     }
@@ -85,7 +85,7 @@ public class PasteBinApiImpl implements PasteBinApi {
                                                                           .orElseThrow(() -> new RuntimeException(
                                                                                   "To fetch user information you need an User Key, please, fetch the user key first!"));
 
-                          params.put(PasteBinApiParams.USER_KEY, userSessionKey);
+                          params.put(USER_KEY, userSessionKey);
 
                           final Optional<UserInformation> userInformation = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL,
                                                                                                        params))
@@ -113,26 +113,26 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         //Required
         parameters.put(DEV_KEY, accountCredentials.getDevKey());
-        parameters.put(PasteBinApiParams.OPTION, PasteBinApiOptions.PASTE);
-        parameters.put(PasteBinApiParams.PASTE_CODE, paste.getContent());
+        parameters.put(OPTION, PasteBinApiOptions.PASTE);
+        parameters.put(PASTE_CODE, paste.getContent());
 
         // Optionals
         // WHen is a guest paste, i don't use the api user key
         if (!isGuestPaste) {
-            accountCredentials.getUserSessionKey().ifPresent(k -> parameters.put(PasteBinApiParams.USER_KEY, k));
+            accountCredentials.getUserSessionKey().ifPresent(k -> parameters.put(USER_KEY, k));
         }
 
         if (isNotNullNorEmpty(paste.getTitle()))
-            parameters.put(PasteBinApiParams.PASTE_NAME, paste.getTitle());
+            parameters.put(PASTE_NAME, paste.getTitle());
 
         if (paste.getHighLight() != null)
-            parameters.put(PasteBinApiParams.PASTE_FORMAT, paste.getHighLight());
+            parameters.put(PASTE_FORMAT, paste.getHighLight());
 
         if (paste.getVisibility() != null)
-            parameters.put(PasteBinApiParams.PASTE_PRIVATE, paste.getVisibility());
+            parameters.put(PASTE_PRIVATE, paste.getVisibility());
 
         if (paste.getExpiration() != null)
-            parameters.put(PasteBinApiParams.PASTE_EXPIRE_DATE, paste.getExpiration());
+            parameters.put(PASTE_EXPIRE_DATE, paste.getExpiration());
 
         final String pasteUrl = requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, parameters)).get();
 
@@ -160,8 +160,8 @@ public class PasteBinApiImpl implements PasteBinApi {
         return doPost(accountCredentials,
                       PasteBinApiOptions.LIST,
                       params -> {
-                          params.put(PasteBinApiParams.USER_KEY, accountCredentials.getUserSessionKey().get());
-                          params.put(PasteBinApiParams.LIST_RESULT_LIMIT, limit);
+                          params.put(USER_KEY, accountCredentials.getUserSessionKey().get());
+                          params.put(LIST_RESULT_LIMIT, limit);
 
                           return requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, params))
                                   .map(r -> String.format("<pastes>%s</pastes>", r))
@@ -193,8 +193,8 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         return doPost(accountCredentials, PasteBinApiOptions.DELETE,
                       params -> {
-                          params.put(PasteBinApiParams.USER_KEY, accountCredentials.getUserSessionKey().get());
-                          params.put(PasteBinApiParams.UNIQUE_PASTE_KEY, pasteKey);
+                          params.put(USER_KEY, accountCredentials.getUserSessionKey().get());
+                          params.put(UNIQUE_PASTE_KEY, pasteKey);
 
                           return requiresValidResponse(post(PasteBinApiUrls.API_POST_URL, params))
                                   .filter("Paste Removed"::equalsIgnoreCase)
@@ -219,8 +219,8 @@ public class PasteBinApiImpl implements PasteBinApi {
 
         if (paste.getVisibility() == PasteVisibility.PRIVATE) {
             return doPost(accountCredentials, PasteBinApiOptions.SHOW_PASTE, params -> {
-                params.put(PasteBinApiParams.USER_KEY, accountCredentials.getUserSessionKey().get());
-                params.put(PasteBinApiParams.UNIQUE_PASTE_KEY, paste.getKey().toUpperCase());
+                params.put(USER_KEY, accountCredentials.getUserSessionKey().get());
+                params.put(UNIQUE_PASTE_KEY, paste.getKey().toUpperCase());
 
                 return requiresValidResponse(post(PasteBinApiUrls.API_PASTE_CONTENT_URL, params)).get();
             });

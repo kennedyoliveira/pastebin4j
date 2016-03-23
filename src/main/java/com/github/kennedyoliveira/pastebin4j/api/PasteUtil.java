@@ -2,7 +2,7 @@ package com.github.kennedyoliveira.pastebin4j.api;
 
 import org.jetbrains.annotations.Nullable;
 
-import static com.github.kennedyoliveira.pastebin4j.api.PasteBinApiUrls.PASTEBIN_URL;
+import static com.github.kennedyoliveira.pastebin4j.api.PasteBinApiUrls.PASTEBIN_RESULT_URL;
 
 /**
  * Utility class for extracting information from pastes
@@ -27,10 +27,10 @@ class PasteUtil {
         if (url == null)
             return null;
 
-        if (!url.contains(PASTEBIN_URL)) {
+        if (!url.contains(PASTEBIN_RESULT_URL)) {
             throw new IllegalArgumentException("Not a valid paste bin url!");
         }
 
-        return url.substring(url.indexOf(PASTEBIN_URL) + PASTEBIN_URL.length());
+        return url.substring(url.indexOf(PASTEBIN_RESULT_URL) + PASTEBIN_RESULT_URL.length());
     }
 }

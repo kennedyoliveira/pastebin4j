@@ -7,7 +7,6 @@ buildscript {
 
 plugins {
     id 'nebula.provided-base' version '3.0.3'
-    id 'nebula.nebula-release' version '4.0.1'
 }
 
 apply plugin: 'java'

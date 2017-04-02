@@ -31,7 +31,7 @@ class PasteBinApiUrls {
     /**
      * <p>The URL base from the PasteBin Site.</p>
      */
-    public static final String PASTEBIN_RESULT_URL = "http://pastebin.com/";
+    public static final String PASTEBIN_RESULT_URL = "https://pastebin.com/";
 
     private PasteBinApiUrls() {
     }

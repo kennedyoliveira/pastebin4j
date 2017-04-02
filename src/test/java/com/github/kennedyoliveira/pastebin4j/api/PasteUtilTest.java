@@ -15,7 +15,7 @@ public class PasteUtilTest {
     @Test
     public void testGetPasteKeyFromUrl() throws Exception {
 
-        final String pasteBinUrl = "http://pastebin.com/NCSQ6k9N";
+        final String pasteBinUrl = "https://pastebin.com/NCSQ6k9N";
 
         assertThat("NCSQ6k9N", is(equalTo(PasteUtil.getPasteKeyFromUrl(pasteBinUrl))));
     }
